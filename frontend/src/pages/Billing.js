@@ -17,7 +17,7 @@ function Billing() {
 
   // Load clients from records
   useEffect(() => {
-    fetch("https://s-courier-system.onrender.com/api/courier")
+    fetch("http://localhost:5000/api/courier")
       .then((res) => res.json())
       .then((data) => {
         const uniqueClients = [...new Set(data.map((item) => item.clientName))];
@@ -28,7 +28,6 @@ function Billing() {
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
-
 
   
 
@@ -41,7 +40,7 @@ function Billing() {
     return;
   }
     console.log("Generating bill with:", form);
-    const url = `https://s-courier-system.onrender.com/api/bill?clientName=${form.clientName}&month=${form.month}&year=${form.year}&fuel=${form.fuel}&gst=${form.gst}&extra=${form.extra}`;
+    const url = `http://localhost:5000/api/bill?clientName=${form.clientName}&month=${form.month}&year=${form.year}&fuel=${form.fuel}&gst=${form.gst}&extra=${form.extra}`;
    
     const res = await fetch(url);
     const data = await res.json();
@@ -143,7 +142,7 @@ function Billing() {
     style={{ marginTop: "12px", background: "#27ae60" }}
     onClick={() => {
       const url =
-        `https://s-courier-system.onrender.com/api/bill/excel` +
+        `http://localhost:5000/api/bill/excel` +
         `?clientName=${form.clientName}` +
         `&month=${form.month}` +
         `&year=${form.year}` +
