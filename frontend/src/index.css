@@ -1,0 +1,177 @@
+/* ===== GLOBAL ===== */
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #eef2f6;
+  color: #2c3e50;
+}
+
+/* ===== NAVBAR ===== */
+
+.navbar {
+  background: #1f2a36;
+  color: white;
+  padding: 16px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+}
+
+.nav-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.nav-links a {
+  color: #d0d8df;
+  text-decoration: none;
+  margin-left: 22px;
+  font-size: 15px;
+}
+
+.nav-links a:hover {
+  color: white;
+}
+
+/* ===== CARD CONTAINER ===== */
+
+.container {
+  max-width: 1150px;
+  margin: 40px auto;
+  background: #ffffff;
+  padding: 32px 36px;
+  border-radius: 10px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+}
+
+/* ===== TITLE ===== */
+
+h2 {
+  margin: 0 0 28px 0;
+  font-weight: 600;
+}
+
+/* ===== FORM GRID ===== */
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px 28px;
+
+}
+
+/* ===== FIELD BLOCK ===== */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== LABEL ===== */
+
+.form-group label {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #5a6b7b;
+}
+
+/* ===== INPUT ===== */
+
+.form-group input {
+  padding: 11px;
+  border-radius: 6px;
+  border: 1px solid #d5dde5;
+  font-size: 14px;
+  transition: border 0.2s ease;
+}
+
+.form-group input:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+/* ===== FULL WIDTH ROW ===== */
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+/* ===== RADIO GROUP ===== */
+
+.radio-group {
+  display: flex;
+  gap: 28px;
+  margin-top: 6px;
+}
+
+.radio-group label {
+  font-weight: normal;
+  color: #2c3e50;
+}
+
+/* ===== BUTTON ===== */
+
+button {
+  background: #2e86c1;
+  color: white;
+  padding: 13px 28px;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #21679c;
+}
+
+
+/* ===== RECORDS TABLE ===== */
+
+.records-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.records-table th {
+  background: #1f2a36;
+  color: white;
+  padding: 12px;
+  text-align: left;
+}
+
+.records-table td {
+  padding: 10px;
+  border-bottom: 1px solid #e0e6ed;
+}
+
+.records-table tr:hover {
+  background: #f5f7fa;
+}
+/* ===== DETAILS BOX ===== */
+
+.details-box {
+  margin-top: 30px;
+  padding: 20px;
+  background: #f7f9fc;
+  border-radius: 8px;
+  border: 1px solid #e1e6ed;
+}
+
+.details-box h3 {
+  margin-top: 0;
+}
+select {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #d5dde5;
+  font-size: 14px;
+}
+
+
