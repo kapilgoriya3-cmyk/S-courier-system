@@ -1,12 +1,14 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {  Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import AddEntry from "./pages/AddEntry";
 import Records from "./pages/Records";
 import Billing from "./pages/Billing";
+import { HashRouter } from "react-router-dom";
+
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Navbar />
 
       <Routes>
@@ -14,7 +16,7 @@ function App() {
         <Route path="/records" element={<Records />} />
         <Route path="/billing" element={<Billing />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
