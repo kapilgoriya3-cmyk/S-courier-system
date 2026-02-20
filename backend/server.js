@@ -35,15 +35,31 @@ app.use(express.json());
 // Save courier entry
 app.post("/api/courier", async (req, res) => {
   try {
+
+    // 🚫 CHECK DUPLICATE DOCKET NUMBER
+    const existing = await Courier.findOne({
+      docketNumber: req.body.docketNumber
+    });
+
+    if (existing) {
+      return res.status(400).json({
+        error: "Docket number already exists ❌"
+      });
+    }
+
+    // ✅ SAVE NEW ENTRY
     const newCourier = new Courier(req.body);
     await newCourier.save();
-    res.status(201).json({ message: "Entry saved successfully ✅" });
+
+    res.status(201).json({
+      message: "Entry saved successfully ✅"
+    });
+
   } catch (error) {
-  console.log(error); // shows real error in terminal
-  res.status(500).json({ error: error.message });
+    console.log(error);
+    res.status(500).json({ error: error.message });
   }
 });
-
 
 
 // Get all courier entries
