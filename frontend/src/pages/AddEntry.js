@@ -1,6 +1,8 @@
 import { useState } from "react";
 
 function AddEntry() {
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     clientName: "",
     receiverName: "",
@@ -51,13 +53,14 @@ function AddEntry() {
   // ===== SUBMIT =====
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  if (isSubmitting) return; // 🚫 Prevent double click
+  
     const error = validateForm();
     if (error) {
       alert(error);
       return;
     }
-
+  setIsSubmitting(true); // 🔒 Lock button
     // Convert numeric fields before sending
     const payload = {
       ...formData,
@@ -94,6 +97,7 @@ function AddEntry() {
     } else {
       alert("Failed to save ❌");
     }
+    setIsSubmitting(false); // 🔓 Unlock button
   };
 
   return (
@@ -241,7 +245,9 @@ function AddEntry() {
         </div>
 
         <div className="form-group full-width">
-          <button type="submit">Save Entry</button>
+       <button type="submit" disabled={isSubmitting}>
+  {isSubmitting ? "Saving..." : "Save Entry"}
+</button>
         </div>
 
       </form>

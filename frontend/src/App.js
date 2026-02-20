@@ -9,8 +9,7 @@ import { HashRouter  } from "react-router-dom";
 function App() {
   return (
     <HashRouter>
-      <Navbar />
-
+      <Navbar/>
       <Routes>
         <Route path="/" element={<AddEntry />} />
         <Route path="/records" element={<Records />} />
