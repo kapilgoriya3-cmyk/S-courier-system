@@ -14,6 +14,7 @@ function AddEntry() {
     docketNumber: "",
     mode: "",
     phone: "",
+    address: "",
   });
 
   // ===== HANDLE CHANGE =====
@@ -67,9 +68,7 @@ function AddEntry() {
       ...formData,
       weight: formData.weight ? Number(formData.weight) : 0,
       charge: Number(formData.charge),
-      docketNumber: formData.docketNumber
-        ? Number(formData.docketNumber)
-        : "",
+      docketNumber: formData.docketNumber ? Number(formData.docketNumber) : "",
     };
 
     const response = await fetch(
@@ -80,7 +79,7 @@ function AddEntry() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
-      }
+      },
     );
 
     if (response.ok) {
@@ -97,6 +96,7 @@ function AddEntry() {
         docketNumber: "",
         mode: "",
         phone: "",
+        address: "",
       });
     } else {
       const data = await response.json();
@@ -111,7 +111,6 @@ function AddEntry() {
       <h2>Add Courier Entry</h2>
 
       <form onSubmit={handleSubmit} className="form-grid">
-
         <div className="form-group">
           <label>Client Name</label>
           <input
@@ -127,6 +126,16 @@ function AddEntry() {
           <input
             name="receiverName"
             value={formData.receiverName}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Receiver Address</label>
+          <input
+            name="address"
+            value={formData.address}
             onChange={handleChange}
             required
           />
@@ -233,7 +242,6 @@ function AddEntry() {
             {isSubmitting ? "Saving..." : "Save Entry"}
           </button>
         </div>
-
       </form>
     </div>
   );

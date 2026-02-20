@@ -99,6 +99,7 @@ function Records() {
             {[
               ["Client", "clientName"],
               ["Receiver", "receiverName"],
+                ["Address", "address"], 
               ["Center", "center"],
               ["Weight", "weight"],
               ["Charge", "charge"],
