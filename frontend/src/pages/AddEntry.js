@@ -198,7 +198,7 @@ function AddEntry() {
         </div>
 
         {/* ===== TYPE DROPDOWN ===== */}
-        <div className="form-group full-width">
+        <div className="form-group">
           <label>Type</label>
           <select
             name="type"
@@ -213,7 +213,7 @@ function AddEntry() {
         </div>
 
         {/* ===== MODE DROPDOWN ===== */}
-        <div className="form-group full-width">
+        <div className="form-group">
           <label>Mode</label>
           <select
             name="mode"
