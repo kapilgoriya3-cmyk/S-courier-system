@@ -2,6 +2,7 @@ import { useState } from "react";
 
 function AddEntry() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+
   const [formData, setFormData] = useState({
     clientName: "",
     receiverName: "",
@@ -43,8 +44,8 @@ function AddEntry() {
     if (!/^\d{10}$/.test(formData.phone))
       return "Phone must be exactly 10 digits";
 
-    if (!formData.type) return "Select DOC / NON-DOC";
-    if (!formData.mode) return "Select AIR / SURFACE";
+    if (!formData.type) return "Select Type";
+    if (!formData.mode) return "Select Mode";
 
     return null;
   };
@@ -52,20 +53,23 @@ function AddEntry() {
   // ===== SUBMIT =====
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (isSubmitting) return; // 🚫 Prevent double click
+    if (isSubmitting) return;
 
     const error = validateForm();
     if (error) {
       alert(error);
       return;
     }
-    setIsSubmitting(true); // 🔒 Lock button
-    // Convert numeric fields before sending
+
+    setIsSubmitting(true);
+
     const payload = {
       ...formData,
       weight: formData.weight ? Number(formData.weight) : 0,
       charge: Number(formData.charge),
-      docketNumber: formData.docketNumber ? Number(formData.docketNumber) : "",
+      docketNumber: formData.docketNumber
+        ? Number(formData.docketNumber)
+        : "",
     };
 
     const response = await fetch(
@@ -76,30 +80,30 @@ function AddEntry() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
-      },
+      }
     );
 
-if (response.ok) {
-  alert("Entry Saved ✅");
+    if (response.ok) {
+      alert("Entry Saved ✅");
 
-  setFormData({
-    clientName: "",
-    receiverName: "",
-    center: "",
-    weight: "",
-    charge: "",
-    type: "",
-    courierType: "",
-    docketNumber: "",
-    mode: "",
-    phone: ""
-  });
+      setFormData({
+        clientName: "",
+        receiverName: "",
+        center: "",
+        weight: "",
+        charge: "",
+        type: "",
+        courierType: "",
+        docketNumber: "",
+        mode: "",
+        phone: "",
+      });
+    } else {
+      const data = await response.json();
+      alert(data.error || "Failed to save ❌");
+    }
 
-} else {
-  const data = await response.json();  // ⭐ GET REAL ERROR
-  alert(data.error || "Failed to save ❌");
-}
-    setIsSubmitting(false); // 🔓 Unlock button
+    setIsSubmitting(false);
   };
 
   return (
@@ -107,6 +111,7 @@ if (response.ok) {
       <h2>Add Courier Entry</h2>
 
       <form onSubmit={handleSubmit} className="form-grid">
+
         <div className="form-group">
           <label>Client Name</label>
           <input
@@ -192,71 +197,35 @@ if (response.ok) {
           />
         </div>
 
-        {/* TYPE */}
+        {/* ===== TYPE DROPDOWN ===== */}
         <div className="form-group full-width">
           <label>Type</label>
-          <div className="radio-group">
-            <label>
-              <input
-                type="radio"
-                name="type"
-                value="DOC"
-                checked={formData.type === "DOC"}
-                onChange={handleChange}
-              />{" "}
-              DOC
-            </label>
-
-            <label>
-              <input
-                type="radio"
-                name="type"
-                value="NON-DOC"
-                checked={formData.type === "NON-DOC"}
-                onChange={handleChange}
-              />{" "}
-              NON-DOC
-            </label>
-          </div>
+          <select
+            name="type"
+            value={formData.type}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select Type</option>
+            <option value="DOC">DOC</option>
+            <option value="NON-DOC">NON-DOC</option>
+          </select>
         </div>
 
-        {/* MODE */}
+        {/* ===== MODE DROPDOWN ===== */}
         <div className="form-group full-width">
           <label>Mode</label>
-          <div className="radio-group">
-            <label>
-              <input
-                type="radio"
-                name="mode"
-                value="AIR"
-                checked={formData.mode === "AIR"}
-                onChange={handleChange}
-              />{" "}
-              AIR
-            </label>
-
-            <label>
-              <input
-                type="radio"
-                name="mode"
-                value="SURFACE"
-                checked={formData.mode === "SURFACE"}
-                onChange={handleChange}
-              />{" "}
-              SURFACE
-            </label>
-            {/* ⭐ NEW OPTION */}
-            <label>
-              <input
-                type="radio"
-                name="mode"
-                value="FAST TRACK"
-                checked={formData.mode === "FAST TRACK"}
-                onChange={handleChange}
-              />{" "}
-              FAST TRACK
-            </label>
-          </div>
+          <select
+            name="mode"
+            value={formData.mode}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select Mode</option>
+            <option value="AIR">AIR</option>
+            <option value="SURFACE">SURFACE</option>
+            <option value="FAST TRACK">FAST TRACK</option>
+          </select>
         </div>
 
         <div className="form-group full-width">
@@ -264,6 +233,7 @@ if (response.ok) {
             {isSubmitting ? "Saving..." : "Save Entry"}
           </button>
         </div>
+
       </form>
     </div>
   );
