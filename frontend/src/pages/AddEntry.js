@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 function AddEntry() {
-
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     clientName: "",
@@ -13,7 +12,7 @@ function AddEntry() {
     courierType: "",
     docketNumber: "",
     mode: "",
-    phone: ""
+    phone: "",
   });
 
   // ===== HANDLE CHANGE =====
@@ -25,7 +24,7 @@ function AddEntry() {
 
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -53,31 +52,32 @@ function AddEntry() {
   // ===== SUBMIT =====
   const handleSubmit = async (e) => {
     e.preventDefault();
-  if (isSubmitting) return; // 🚫 Prevent double click
-  
+    if (isSubmitting) return; // 🚫 Prevent double click
+
     const error = validateForm();
     if (error) {
       alert(error);
       return;
     }
-  setIsSubmitting(true); // 🔒 Lock button
+    setIsSubmitting(true); // 🔒 Lock button
     // Convert numeric fields before sending
     const payload = {
       ...formData,
       weight: formData.weight ? Number(formData.weight) : 0,
       charge: Number(formData.charge),
-      docketNumber: formData.docketNumber
-        ? Number(formData.docketNumber)
-        : ""
+      docketNumber: formData.docketNumber ? Number(formData.docketNumber) : "",
     };
 
-    const response = await fetch("https://s-courier-system.onrender.com/api/courier", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
+    const response = await fetch(
+      "https://s-courier-system.onrender.com/api/courier",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
       },
-      body: JSON.stringify(payload)
-    });
+    );
 
     if (response.ok) {
       alert("Entry Saved ✅");
@@ -92,7 +92,7 @@ function AddEntry() {
         courierType: "",
         docketNumber: "",
         mode: "",
-        phone: ""
+        phone: "",
       });
     } else {
       alert("Failed to save ❌");
@@ -105,7 +105,6 @@ function AddEntry() {
       <h2>Add Courier Entry</h2>
 
       <form onSubmit={handleSubmit} className="form-grid">
-
         <div className="form-group">
           <label>Client Name</label>
           <input
@@ -187,7 +186,6 @@ function AddEntry() {
             value={formData.phone}
             onChange={handleChange}
             maxLength="10"
-            
             required
           />
         </div>
@@ -203,7 +201,8 @@ function AddEntry() {
                 value="DOC"
                 checked={formData.type === "DOC"}
                 onChange={handleChange}
-              /> DOC
+              />{" "}
+              DOC
             </label>
 
             <label>
@@ -213,7 +212,8 @@ function AddEntry() {
                 value="NON-DOC"
                 checked={formData.type === "NON-DOC"}
                 onChange={handleChange}
-              /> NON-DOC
+              />{" "}
+              NON-DOC
             </label>
           </div>
         </div>
@@ -229,7 +229,8 @@ function AddEntry() {
                 value="AIR"
                 checked={formData.mode === "AIR"}
                 onChange={handleChange}
-              /> AIR
+              />{" "}
+              AIR
             </label>
 
             <label>
@@ -239,17 +240,28 @@ function AddEntry() {
                 value="SURFACE"
                 checked={formData.mode === "SURFACE"}
                 onChange={handleChange}
-              /> SURFACE
+              />{" "}
+              SURFACE
+            </label>
+            {/* ⭐ NEW OPTION */}
+            <label>
+              <input
+                type="radio"
+                name="mode"
+                value="FAST TRACK"
+                checked={formData.mode === "FAST TRACK"}
+                onChange={handleChange}
+              />{" "}
+              FAST TRACK
             </label>
           </div>
         </div>
 
         <div className="form-group full-width">
-       <button type="submit" disabled={isSubmitting}>
-  {isSubmitting ? "Saving..." : "Save Entry"}
-</button>
+          <button type="submit" disabled={isSubmitting}>
+            {isSubmitting ? "Saving..." : "Save Entry"}
+          </button>
         </div>
-
       </form>
     </div>
   );
