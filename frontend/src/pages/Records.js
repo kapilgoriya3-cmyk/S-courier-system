@@ -5,6 +5,7 @@ function Records() {
   const [selected, setSelected] = useState(null);
   const [editing, setEditing] = useState(false);
 
+  // ===== LOAD DATA =====
   const loadData = () => {
     fetch("https://s-courier-system.onrender.com/api/courier")
       .then(res => res.json())
@@ -15,23 +16,40 @@ function Records() {
     loadData();
   }, []);
 
+  // ===== DELETE =====
   const handleDelete = async () => {
-    await fetch(`https://s-courier-system.onrender.com/api/courier/${selected._id}`, {
-      method: "DELETE"
-    });
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this entry?"
+    );
+
+    if (!confirmDelete) return;
+
+    await fetch(
+      `https://s-courier-system.onrender.com/api/courier/${selected._id}`,
+      { method: "DELETE" }
+    );
+
+    alert("Entry deleted ✅");
 
     setSelected(null);
     loadData();
   };
 
+  // ===== UPDATE =====
   const handleUpdate = async () => {
-    await fetch(`https://s-courier-system.onrender.com/api/courier/${selected._id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(selected)
-    });
+    await fetch(
+      `https://s-courier-system.onrender.com/api/courier/${selected._id}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(selected)
+      }
+    );
+
+    alert("Entry updated ✅");
 
     setEditing(false);
+    setSelected(null);
     loadData();
   };
 
@@ -64,188 +82,85 @@ function Records() {
               <td>{item.clientName}</td>
               <td>{item.receiverName}</td>
               <td>{item.center}</td>
-              <td>{item.charge}</td>
+              <td>₹{item.charge}</td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      {/* ===== DETAILS PANEL ===== */}
+      {/* ===== MODAL POPUP ===== */}
 
-   {selected && (
-  <div className="details-box">
-    <h3>Entry Details</h3>
+      {selected && (
+        <div className="modal-overlay">
+          <div className="modal">
 
-    <p>
-      <b>Client:</b>{" "}
-      {editing ? (
-        <input
-          value={selected.clientName}
-          onChange={e =>
-            setSelected({ ...selected, clientName: e.target.value })
-          }
-        />
-      ) : (
-        selected.clientName
+            <h3>Entry Details</h3>
+
+            {[
+              ["Client", "clientName"],
+              ["Receiver", "receiverName"],
+              ["Center", "center"],
+              ["Weight", "weight"],
+              ["Charge", "charge"],
+              ["Type", "type"],
+              ["Courier Type", "courierType"],
+              ["Docket No", "docketNumber"],
+              ["Mode", "mode"],
+              ["Phone", "phone"]
+            ].map(([label, field]) => (
+              <p key={field}>
+                <b>{label}:</b>{" "}
+                {editing ? (
+                  <input
+                    value={selected[field] || ""}
+                    onChange={e =>
+                      setSelected({
+                        ...selected,
+                        [field]: e.target.value
+                      })
+                    }
+                  />
+                ) : (
+                  selected[field]
+                )}
+              </p>
+            ))}
+
+            {/* ACTION BUTTONS */}
+
+            <div style={{ marginTop: "20px" }}>
+
+              {!editing && (
+                <button onClick={() => setEditing(true)}>
+                  Edit
+                </button>
+              )}
+
+              {editing && (
+                <button onClick={handleUpdate}>
+                  Save
+                </button>
+              )}
+
+              <button
+                onClick={handleDelete}
+                style={{ marginLeft: "10px", background: "#e74c3c" }}
+              >
+                Delete
+              </button>
+
+              <button
+                onClick={() => setSelected(null)}
+                style={{ marginLeft: "10px", background: "#7f8c8d" }}
+              >
+                Close
+              </button>
+
+            </div>
+
+          </div>
+        </div>
       )}
-    </p>
-
-    <p>
-      <b>Receiver:</b>{" "}
-      {editing ? (
-        <input
-          value={selected.receiverName}
-          onChange={e =>
-            setSelected({ ...selected, receiverName: e.target.value })
-          }
-        />
-      ) : (
-        selected.receiverName
-      )}
-    </p>
-
-    <p>
-      <b>Center:</b>{" "}
-      {editing ? (
-        <input
-          value={selected.center}
-          onChange={e =>
-            setSelected({ ...selected, center: e.target.value })
-          }
-        />
-      ) : (
-        selected.center
-      )}
-    </p>
-
-    <p>
-      <b>Weight:</b>{" "}
-      {editing ? (
-        <input
-          value={selected.weight}
-          onChange={e =>
-            setSelected({ ...selected, weight: e.target.value })
-          }
-        />
-      ) : (
-        selected.weight
-      )}
-    </p>
-
-    <p>
-      <b>Charge:</b>{" "}
-      {editing ? (
-        <input
-          value={selected.charge}
-          onChange={e =>
-            setSelected({ ...selected, charge: e.target.value })
-          }
-        />
-      ) : (
-        selected.charge
-      )}
-    </p>
-
-    <p>
-      <b>Type:</b>{" "}
-      {editing ? (
-        <input
-          value={selected.type}
-          onChange={e =>
-            setSelected({ ...selected, type: e.target.value })
-          }
-        />
-      ) : (
-        selected.type
-      )}
-    </p>
-
-    <p>
-      <b>Courier Type:</b>{" "}
-      {editing ? (
-        <input
-          value={selected.courierType}
-          onChange={e =>
-            setSelected({ ...selected, courierType: e.target.value })
-          }
-        />
-      ) : (
-        selected.courierType
-      )}
-    </p>
-
-    <p>
-      <b>Docket No:</b>{" "}
-      {editing ? (
-        <input
-          value={selected.docketNumber}
-          onChange={e =>
-            setSelected({ ...selected, docketNumber: e.target.value })
-          }
-        />
-      ) : (
-        selected.docketNumber
-      )}
-    </p>
-
-    <p>
-      <b>Mode:</b>{" "}
-      {editing ? (
-        <input
-          value={selected.mode}
-          onChange={e =>
-            setSelected({ ...selected, mode: e.target.value })
-          }
-        />
-      ) : (
-        selected.mode
-      )}
-    </p>
-
-    <p>
-      <b>Phone:</b>{" "}
-      {editing ? (
-        <input
-          value={selected.phone}
-          onChange={e =>
-            setSelected({ ...selected, phone: e.target.value })
-          }
-        />
-      ) : (
-        selected.phone
-      )}
-    </p>
-
-    {/* ACTION BUTTONS */}
-
-    <div style={{ marginTop: "20px" }}>
-
-      {!editing && (
-        <button onClick={() => setEditing(true)}>Edit</button>
-      )}
-
-      {editing && (
-        <button onClick={handleUpdate}>Save</button>
-      )}
-
-      <button
-        onClick={handleDelete}
-        style={{ marginLeft: "10px", background: "#e74c3c" }}
-      >
-        Delete
-      </button>
-
-      <button
-        onClick={() => setSelected(null)}
-        style={{ marginLeft: "10px", background: "#7f8c8d" }}
-      >
-        Close
-      </button>
-
-    </div>
-  </div>
-)}
-
     </div>
   );
 }
