@@ -79,24 +79,26 @@ function AddEntry() {
       },
     );
 
-    if (response.ok) {
-      alert("Entry Saved ✅");
+if (response.ok) {
+  alert("Entry Saved ✅");
 
-      setFormData({
-        clientName: "",
-        receiverName: "",
-        center: "",
-        weight: "",
-        charge: "",
-        type: "",
-        courierType: "",
-        docketNumber: "",
-        mode: "",
-        phone: "",
-      });
-    } else {
-      alert("Failed to save ❌");
-    }
+  setFormData({
+    clientName: "",
+    receiverName: "",
+    center: "",
+    weight: "",
+    charge: "",
+    type: "",
+    courierType: "",
+    docketNumber: "",
+    mode: "",
+    phone: ""
+  });
+
+} else {
+  const data = await response.json();  // ⭐ GET REAL ERROR
+  alert(data.error || "Failed to save ❌");
+}
     setIsSubmitting(false); // 🔓 Unlock button
   };
 
