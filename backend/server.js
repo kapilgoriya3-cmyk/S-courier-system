@@ -1,6 +1,7 @@
 
 // Import required packages
 const billRoutes = require("./routes/billRoutes.js");
+const authRoutes = require("./routes/auth");
 
 const express = require("express");     // Express framework → used to create backend server & APIs
 const mongoose = require("mongoose");   // Mongoose → helps connect Node.js to MongoDB database
@@ -22,6 +23,7 @@ const app = express();                  // Initialize Express app (your server)
 
 app.use(cors());
 app.use("/api/bill", billRoutes);
+app.use("/api/auth", authRoutes);
 // Enable JSON parsing
 // Allows server to read data sent in JSON format from frontend
 
