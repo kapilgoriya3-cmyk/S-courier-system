@@ -9,30 +9,59 @@ body {
 
 /* ===== NAVBAR ===== */
 
+
 .navbar {
-  background: #1f2a36;
+  background: #2c3e50;
   color: white;
-  padding: 16px 28px;
+
+  padding: 14px 25px;
+
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+  align-items: center;
+
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
-.nav-title {
-  font-size: 18px;
-  font-weight: 600;
+/* LOGO */
+
+.logo {
+  margin: 0;
+  font-size: 20px;
+}
+
+/* NAV LINKS */
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
 .nav-links a {
-  color: #d0d8df;
+  color: white;
   text-decoration: none;
-  margin-left: 22px;
   font-size: 15px;
 }
 
 .nav-links a:hover {
-  color: white;
+  text-decoration: underline;
+}
+
+/* LOGOUT BUTTON */
+
+.logout-btn {
+  background: transparent;
+  border: none;
+  color: #ffb3b3;  /* subtle red */
+
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  color: #ff6b6b;
+  text-decoration: underline;
 }
 
 /* ===== CARD CONTAINER ===== */
@@ -200,39 +229,70 @@ select {
   overflow-y: auto;
 }
 
-/* ===== LOGIN PAGE ===== */
+/* ===== LOGIN PAGE (FULL SCREEN) ===== */
 
 .login-page {
   height: 100vh;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #2c3e50, #4ca1af);
+
+  background: #f1f3f6; /* soft professional background */
+  font-family: "Segoe UI", Arial, sans-serif;
 }
 
+/* ===== LOGIN CARD ===== */
+
 .login-card {
-  background: white;
-  padding: 40px 35px;
-  border-radius: 12px;
-  width: 320px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+  background: #ffffff;
+  padding: 45px 40px;
+  border-radius: 14px;
+  width: 340px;
+
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+
   text-align: center;
 }
 
-.login-card h2 {
-  margin-bottom: 25px;
+/* ===== BRAND NAME ===== */
+
+.login-brand {
+  font-size: 20px;
+  font-weight: 600;
   color: #2c3e50;
+  margin-bottom: 5px;
 }
+
+/* ===== TITLE ===== */
+
+.login-title {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 25px;
+}
+
+/* ===== INPUT FIELDS ===== */
 
 .login-card input {
   width: 100%;
-  padding: 12px;
+  padding: 12px 14px;
   margin-bottom: 15px;
+
   border-radius: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #dcdfe4;
+
+  font-size: 14px;
+  transition: all 0.2s ease;
 }
 
-/* PASSWORD FIELD */
+.login-card input:focus {
+  outline: none;
+  border-color: #4ca1af;
+  box-shadow: 0 0 6px rgba(76, 161, 175, 0.3);
+}
+
+/* ===== PASSWORD FIELD ===== */
 
 .password-field {
   position: relative;
@@ -241,32 +301,48 @@ select {
 .eye-btn {
   position: absolute;
   right: 12px;
-  top: 10px;
+  top: 11px;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 16px;
+  color: #888;
 }
 
-/* ERROR MESSAGE */
+/* ===== ERROR MESSAGE ===== */
 
 .login-error {
-  color: red;
+  color: #e74c3c;
   font-size: 13px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
-/* BUTTON */
+/* ===== LOGIN BUTTON ===== */
 
 .login-card button {
   width: 100%;
   padding: 12px;
-  background: #4ca1af;
+
+  background: #2c3e50;
   color: white;
+
   border: none;
   border-radius: 8px;
-  font-weight: bold;
+
+  font-size: 15px;
+  font-weight: 600;
+
   cursor: pointer;
+  transition: background 0.2s;
 }
 
 .login-card button:hover {
-  background: #357f8a;
+  background: #1a252f;
+}
+
+/* ===== MOBILE ===== */
+
+@media (max-width: 480px) {
+  .login-card {
+    width: 90%;
+    padding: 35px 25px;
+  }
 }
