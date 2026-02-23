@@ -16,18 +16,25 @@ require("dotenv").config();             // dotenv → loads environment variable
 
 const app = express();                  // Initialize Express app (your server)
 
+
+
+
+
 // ===================== MIDDLEWARE =====================
 
 // Enable CORS
 // Without this, browser blocks requests from React frontend
 
 app.use(cors());
-app.use("/api/bill", billRoutes);
-app.use("/api/auth", authRoutes);
+
+
 // Enable JSON parsing
 // Allows server to read data sent in JSON format from frontend
 
 app.use(express.json());
+
+app.use("/api/auth", authRoutes);
+app.use("/api/bill", billRoutes);
 
 
 // ===================== TEST ROUTE =====================
