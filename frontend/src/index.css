@@ -201,3 +201,66 @@ select {
 }
 
 
+/* ===== LOGIN PAGE ===== */
+
+.login-page {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #2c3e50, #4ca1af);
+  font-family: Arial, sans-serif;
+}
+
+/* ===== LOGIN CARD ===== */
+
+.login-card {
+  background: #ffffff;
+  padding: 40px 35px;
+  border-radius: 12px;
+  width: 320px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.login-card h2 {
+  margin-bottom: 25px;
+  color: #2c3e50;
+}
+
+/* ===== INPUTS ===== */
+
+.login-card input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.login-card input:focus {
+  outline: none;
+  border-color: #4ca1af;
+  box-shadow: 0 0 6px rgba(76, 161, 175, 0.5);
+}
+
+/* ===== BUTTON ===== */
+
+.login-card button {
+  width: 100%;
+  padding: 12px;
+  background: #4ca1af;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.login-card button:hover {
+  background: #357f8a;
+}
