@@ -66,6 +66,10 @@ function AddEntry() {
 
     const payload = {
       ...formData,
+     
+        // ⭐ FORCE CAPITAL CLIENT NAME
+  clientName: formData.clientName.toUpperCase(),
+  
       weight: formData.weight ? Number(formData.weight) : 0,
       charge: Number(formData.charge),
       docketNumber: formData.docketNumber ? Number(formData.docketNumber) : "",
