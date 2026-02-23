@@ -200,7 +200,6 @@ select {
   overflow-y: auto;
 }
 
-
 /* ===== LOGIN PAGE ===== */
 
 .login-page {
@@ -209,17 +208,14 @@ select {
   justify-content: center;
   align-items: center;
   background: linear-gradient(135deg, #2c3e50, #4ca1af);
-  font-family: Arial, sans-serif;
 }
 
-/* ===== LOGIN CARD ===== */
-
 .login-card {
-  background: #ffffff;
+  background: white;
   padding: 40px 35px;
   border-radius: 12px;
   width: 320px;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
   text-align: center;
 }
 
@@ -228,25 +224,37 @@ select {
   color: #2c3e50;
 }
 
-/* ===== INPUTS ===== */
-
 .login-card input {
   width: 100%;
   padding: 12px;
   margin-bottom: 15px;
   border-radius: 8px;
   border: 1px solid #ccc;
-  font-size: 14px;
-  transition: 0.2s;
 }
 
-.login-card input:focus {
-  outline: none;
-  border-color: #4ca1af;
-  box-shadow: 0 0 6px rgba(76, 161, 175, 0.5);
+/* PASSWORD FIELD */
+
+.password-field {
+  position: relative;
 }
 
-/* ===== BUTTON ===== */
+.eye-btn {
+  position: absolute;
+  right: 12px;
+  top: 10px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* ERROR MESSAGE */
+
+.login-error {
+  color: red;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+/* BUTTON */
 
 .login-card button {
   width: 100%;
@@ -255,10 +263,8 @@ select {
   color: white;
   border: none;
   border-radius: 8px;
-  font-size: 15px;
   font-weight: bold;
   cursor: pointer;
-  transition: 0.2s;
 }
 
 .login-card button:hover {

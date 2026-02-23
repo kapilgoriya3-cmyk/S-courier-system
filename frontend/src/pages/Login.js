@@ -6,8 +6,12 @@ function Login() {
     password: ""
   });
 
+  const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+    setError(""); // clear error while typing
   };
 
   const handleLogin = async () => {
@@ -24,11 +28,9 @@ function Login() {
 
     if (res.ok) {
       localStorage.setItem("token", data.token);
-
-      // 🔄 Reload app → App.js will show dashboard
       window.location.reload();
     } else {
-      alert(data.error);
+      setError(data.error || "Login failed ❌");
     }
   };
 
@@ -43,12 +45,25 @@ function Login() {
           onChange={handleChange}
         />
 
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          onChange={handleChange}
-        />
+        {/* PASSWORD FIELD WITH EYE BUTTON */}
+        <div className="password-field">
+          <input
+            name="password"
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+            onChange={handleChange}
+          />
+
+          <span
+            className="eye-btn"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? "🙈" : "👁"}
+          </span>
+        </div>
+
+        {/* ERROR MESSAGE */}
+        {error && <p className="login-error">{error}</p>}
 
         <button onClick={handleLogin}>Login</button>
       </div>
