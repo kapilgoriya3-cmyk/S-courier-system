@@ -4,12 +4,19 @@ function Records() {
   const [data, setData] = useState([]);
   const [selected, setSelected] = useState(null);
   const [editing, setEditing] = useState(false);
+  const [loading, setLoading] = useState(true); // ⭐ NEW
 
   // ===== LOAD DATA =====
   const loadData = () => {
+    setLoading(true);
+
     fetch("https://s-courier-system.onrender.com/api/courier")
       .then(res => res.json())
-      .then(result => setData(result));
+      .then(result => {
+        setData(result);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
   };
 
   useEffect(() => {
@@ -57,36 +64,44 @@ function Records() {
     <div className="container">
       <h2>Courier Records</h2>
 
-      <table className="records-table">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Client</th>
-            <th>Receiver</th>
-            <th>Center</th>
-            <th>Charge</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {data.map(item => (
-            <tr
-              key={item._id}
-              onClick={() => {
-                setSelected(item);
-                setEditing(false);
-              }}
-              style={{ cursor: "pointer" }}
-            >
-              <td>{new Date(item.date).toLocaleDateString()}</td>
-              <td>{item.clientName}</td>
-              <td>{item.receiverName}</td>
-              <td>{item.center}</td>
-              <td>₹{item.charge}</td>
+      {/* ===== LOADER ===== */}
+      {loading ? (
+        <div className="loader">
+          <div className="spinner"></div>
+          <p>Loading records...</p>
+        </div>
+      ) : (
+        <table className="records-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Client</th>
+              <th>Receiver</th>
+              <th>Center</th>
+              <th>Charge</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            {data.map(item => (
+              <tr
+                key={item._id}
+                onClick={() => {
+                  setSelected(item);
+                  setEditing(false);
+                }}
+                style={{ cursor: "pointer" }}
+              >
+                <td>{new Date(item.date).toLocaleDateString()}</td>
+                <td>{item.clientName}</td>
+                <td>{item.receiverName}</td>
+                <td>{item.center}</td>
+                <td>₹{item.charge}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
 
       {/* ===== MODAL POPUP ===== */}
 
@@ -99,7 +114,7 @@ function Records() {
             {[
               ["Client", "clientName"],
               ["Receiver", "receiverName"],
-                ["Address", "address"], 
+              ["Address", "address"], 
               ["Center", "center"],
               ["Weight", "weight"],
               ["Charge", "charge"],

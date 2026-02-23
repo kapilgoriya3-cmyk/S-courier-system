@@ -346,3 +346,29 @@ select {
     padding: 35px 25px;
   }
 }
+
+/* LOADER */
+
+.loader {
+  text-align: center;
+  margin-top: 50px;
+  color: #555;
+}
+
+/* SPINNER */
+
+.spinner {
+  margin: 0 auto 10px;
+  width: 45px;
+  height: 45px;
+
+  border: 5px solid #ddd;
+  border-top: 5px solid #2c3e50;
+
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
