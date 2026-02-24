@@ -81,25 +81,31 @@ function Records() {
               <th>Charge</th>
             </tr>
           </thead>
+<tbody>
+  {[...data]
+    .sort((a, b) => {
+      const dateDiff = new Date(b.date) - new Date(a.date);
+      if (dateDiff !== 0) return dateDiff;
 
-          <tbody>
-            {data.map(item => (
-              <tr
-                key={item._id}
-                onClick={() => {
-                  setSelected(item);
-                  setEditing(false);
-                }}
-                style={{ cursor: "pointer" }}
-              >
-                <td>{new Date(item.date).toLocaleDateString()}</td>
-                <td>{item.clientName}</td>
-                <td>{item.receiverName}</td>
-                <td>{item.center}</td>
-                <td>₹{item.charge}</td>
-              </tr>
-            ))}
-          </tbody>
+      return b._id.localeCompare(a._id);
+    })
+    .map(item => (
+      <tr
+        key={item._id}
+        onClick={() => {
+          setSelected(item);
+          setEditing(false);
+        }}
+        style={{ cursor: "pointer" }}
+      >
+        <td>{new Date(item.date).toLocaleDateString()}</td>
+        <td>{item.clientName}</td>
+        <td>{item.receiverName}</td>
+        <td>{item.center}</td>
+        <td>₹{item.charge}</td>
+      </tr>
+    ))}
+</tbody>
         </table>
       )}
 
