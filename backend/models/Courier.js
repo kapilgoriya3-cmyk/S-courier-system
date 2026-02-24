@@ -3,7 +3,13 @@ const mongoose = require("mongoose");
 const courierSchema = new mongoose.Schema({
   clientName: String,
   receiverName: String,
-    address: String,  
+
+  // Address (keep only once)
+  address: {
+    type: String,
+    default: ""
+  },
+
   center: String,
   weight: Number,
   charge: Number,
@@ -12,14 +18,18 @@ const courierSchema = new mongoose.Schema({
   docketNumber: String,
   mode: String,
   phone: String,
+
+  // 📅 Shipment date (manual or auto)
   date: {
     type: Date,
     default: Date.now
   },
-  address: {
-  type: String,
-  default: ""
-}
+
+  // ⏱ Entry timestamp (NEW — auto)
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 module.exports = mongoose.model("Courier", courierSchema);

@@ -74,7 +74,7 @@ app.post("/api/courier", async (req, res) => {
 // Get all courier entries
 app.get("/api/courier", async (req, res) => {
   try {
-    const data = await Courier.find().sort({ date: -1, _id: -1 });
+    const data = await Courier.find().sort({ createdAt: -1, _id: -1 });
     res.json(data);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch data ❌" });
