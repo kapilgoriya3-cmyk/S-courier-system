@@ -243,12 +243,7 @@ function AddEntry() {
           </select>
         </div>
 
-        <div className="form-group full-width">
-          <button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Saving..." : "Save Entry"}
-          </button>
-        </div>
-        <div className="form-group">
+            <div className="form-group">
         <label>Date</label>
         <input
           type="date"
@@ -258,6 +253,13 @@ function AddEntry() {
           required
         />
       </div>
+
+        <div className="form-group full-width">
+          <button type="submit" disabled={isSubmitting}>
+            {isSubmitting ? "Saving..." : "Save Entry"}
+          </button>
+        </div>
+    
       </form>
     </div>
   );
