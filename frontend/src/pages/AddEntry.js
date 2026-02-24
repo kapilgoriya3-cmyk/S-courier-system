@@ -15,6 +15,7 @@ function AddEntry() {
     mode: "",
     phone: "",
     address: "",
+    date: new Date().toISOString().split("T")[0],
   });
 
   // ===== HANDLE CHANGE =====
@@ -73,6 +74,7 @@ function AddEntry() {
       weight: formData.weight ? Number(formData.weight) : 0,
       charge: Number(formData.charge),
       docketNumber: formData.docketNumber ? Number(formData.docketNumber) : "",
+        date: formData.date,
     };
 
     const response = await fetch(
@@ -246,6 +248,16 @@ function AddEntry() {
             {isSubmitting ? "Saving..." : "Save Entry"}
           </button>
         </div>
+        <div className="form-group">
+        <label>Date</label>
+        <input
+          type="date"
+          name="date"
+          value={formData.date}
+          onChange={handleChange}
+          required
+        />
+      </div>
       </form>
     </div>
   );
