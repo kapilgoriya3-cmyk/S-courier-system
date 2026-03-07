@@ -192,7 +192,7 @@ function AddEntry() {
         <div className="form-group">
           <label>Docket Number</label>
           <input
-            type="number"
+            type="text"
             name="docketNumber"
             value={formData.docketNumber}
             onChange={handleChange}
