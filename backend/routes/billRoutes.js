@@ -27,15 +27,17 @@ router.get("/excel", async (req, res) => {
     const sheet = workbook.addWorksheet("Invoice");
 
     // ===== COLUMN WIDTHS =====
-    sheet.columns = [
-      { width: 6 },   // Sr
-      { width: 16 },  // Doc No
-      { width: 10 },  // Weight
-      { width: 22 },  // Sender
-      { width: 22 },  // Receiver
-      { width: 14 },  // Center
-      { width: 14 }   // Freight
-    ];
+   sheet.columns = [
+  { width: 6 },   // Sr
+  { width: 12 },  // Date
+  { width: 16 },  // Courier
+  { width: 16 },  // Doc No
+  { width: 10 },  // Weight
+  { width: 22 },  // Sender
+  { width: 22 },  // Receiver
+  { width: 14 },  // Center
+  { width: 14 }   // Freight
+];
 
     // ===== TITLE =====
     sheet.mergeCells("A1:G1");
@@ -64,15 +66,17 @@ router.get("/excel", async (req, res) => {
     // ===== TABLE HEADER =====
     const headerRow = 12;
 
-    const headers = [
-      "Sr",
-      "Doc No",
-      "Weight",
-      "Sender",
-      "Receiver",
-      "Center",
-      "Freight"
-    ];
+      const headers = [
+        "Sr",
+        "Date",
+        "Courier",
+        "Doc No",
+        "Weight",
+        "Sender",
+        "Receiver",
+        "Center",
+        "Freight"
+      ];
 
     headers.forEach((h, i) => {
       const cell = sheet.getCell(headerRow, i + 1);
@@ -89,8 +93,10 @@ router.get("/excel", async (req, res) => {
 
     // ===== TABLE DATA =====
     entries.forEach((e, index) => {
-      const row = sheet.addRow([
+          const row = sheet.addRow([
         index + 1,
+        new Date(e.date).toLocaleDateString(),
+        e.courierType,
         e.docketNumber,
         `${e.weight || 0} KG`,
         e.clientName,
@@ -98,7 +104,6 @@ router.get("/excel", async (req, res) => {
         e.center,
         e.charge
       ]);
-
       row.eachCell(cell => {
         cell.border = {
           left: { style: "thin" },
